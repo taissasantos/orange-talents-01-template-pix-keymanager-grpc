@@ -8,9 +8,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ExceptionHandlerInterceptor(@Inject private val  resolver: ErrorHandlerResolver): MethodInterceptor<BindableService,Any>{
+class ExceptionHandlerInterceptor(@Inject private val  resolver: ErrorHandlerResolver): MethodInterceptor<Any,Any>{
 
-    override fun intercept(context: MethodInvocationContext<BindableService, Any>): Any? {
+    override fun intercept(context: MethodInvocationContext<Any, Any>): Any? {
         try {
             return context.proceed() } catch (e: Exception) {
 

@@ -3,7 +3,7 @@ package br.com.zup.pix.external
 import br.com.zup.pix.registra.ContaAssociada
 import javax.persistence.Embeddable
 
-class DadosClientResponse(
+data class DadosClientResponse(
         val tipo: String,
         val instituicao: InstituicaoResponse,
         val agencia: String,
@@ -23,6 +23,6 @@ class DadosClientResponse(
 
 }
 
-data class TitularResponse(val nome: String, val cpf: String)
+data class TitularResponse(val id: String, val nome: String, val cpf: String)
 
-data class InstituicaoResponse(val nome: String, val isbn: String)
+data class InstituicaoResponse(val nome: String, val ispb: String)

@@ -3,11 +3,12 @@ package br.com.zup.pix.registra
 import br.com.zup.PixServiceGrpc
 import br.com.zup.RegistraChavePixRequest
 import br.com.zup.RegistraChavePixResponse
+import br.com.zup.shared.ErrorHandler
 import io.grpc.stub.StreamObserver
 import javax.inject.Inject
 import javax.inject.Singleton
 
-
+@ErrorHandler
 @Singleton
 class RegistraChaveEndpoint(@Inject private val service: NovaChavePixService,) :
                             PixServiceGrpc.PixServiceImplBase() {
