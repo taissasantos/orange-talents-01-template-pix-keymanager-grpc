@@ -11,5 +11,6 @@ interface ChavePixRespository : JpaRepository<ChavePix, UUID> {
 
     @Executable
     fun existsByChave(chave:String) : Boolean
+    fun findByIdAndClientId(pixId: UUID?, clienteId: UUID?): Optional<ChavePix>
 
 }

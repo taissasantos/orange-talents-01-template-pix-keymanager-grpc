@@ -12,6 +12,11 @@ service PixService {
 
 }
 
+service RemoveChavePixService {
+  rpc remove (RemoveChavePixRequest) returns (RemoveChavePixPixResponse) {}
+
+}
+
 enum TipoDeChave{
   UNKNOWN_TIPO_CHAVE  = 0;
   CPF                 = 1;
@@ -34,6 +39,16 @@ message RegistraChavePixRequest {
 }
 
 message RegistraChavePixResponse {
+  string clientId = 1;
+  string pixId    = 2;
+}
+
+message RemoveChavePixRequest{
+  string clientId = 1;
+  string pixId    = 2;
+}
+
+message RemoveChavePixPixResponse{
   string clientId = 1;
   string pixId    = 2;
 }

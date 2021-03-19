@@ -6,6 +6,7 @@ import io.grpc.StatusRuntimeException
 import io.grpc.protobuf.StatusProto
 
 interface ExceptionHandler<T : Exception> {
+
     fun handle(e: T): StatusWrapper
     fun supports(e: Exception): Boolean
 
