@@ -3,7 +3,6 @@ package br.com.zup.pix.registra
 import br.com.zup.RegistraChavePixRequest
 import br.com.zup.TipoDeChave
 import br.com.zup.TipoDeConta
-import br.com.zup.shared.TipoChave
 
 fun RegistraChavePixRequest.toModel(): NovaChavePix{
     return NovaChavePix(
@@ -15,7 +14,7 @@ fun RegistraChavePixRequest.toModel(): NovaChavePix{
         chave = chave,
         tipoDeConta = when(tipoDeConta){
             TipoDeConta.UNKNOWN_TIPO_CONTA -> null
-            else -> TipoDeConta.valueOf(tipoDeConta.name)
+            else -> TipoConta.valueOf(tipoDeConta.name)
         }
     )
 }

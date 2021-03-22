@@ -1,8 +1,11 @@
 package br.com.zup.pix.remove
 
+import br.com.zup.pix.external.BancoCentralClient
+import br.com.zup.pix.external.DeletePixKeyRequest
 import br.com.zup.pix.remove.exception.ChaveNaoEncontradaException
 import br.com.zup.pix.repository.ChavePixRespository
 import br.com.zup.shared.ValidUUID
+import io.micronaut.http.HttpStatus
 import io.micronaut.validation.Validated
 import java.util.*
 import javax.inject.Inject
@@ -12,7 +15,8 @@ import javax.validation.constraints.NotBlank
 
 @Validated
 @Singleton
-class RemoveChavePixService(@Inject val repository: ChavePixRespository) {
+class RemoveChavePixService(@Inject val repository: ChavePixRespository,
+                            @Inject val bcbClient: BancoCentralClient) {
 
     @Transactional
     fun remove(
@@ -27,6 +31,13 @@ class RemoveChavePixService(@Inject val repository: ChavePixRespository) {
                 .orElseThrow{ ChaveNaoEncontradaException("Chave Pix não encontrada") }
 
         repository.deleteById(uuidPixId)
+
+        val request = DeletePixKeyRequest(chave.chave, chave.conta.ispb)
+
+        val bcbResponse = bcbClient.deleta(key = chave.chave, request = request)
+        if(bcbResponse.status != HttpStatus.OK){
+            throw IllegalStateException("Erro ao tentar excluir a chave no banco central")
+        }
 
     }
 

@@ -1,8 +1,6 @@
 package br.com.zup.pix.registra
 
 //import br.com.zup.TipoDeChave
-import br.com.zup.TipoDeConta
-import br.com.zup.shared.TipoChave
 
 import java.time.LocalDateTime
 import javax.persistence.EnumType.STRING
@@ -26,28 +24,28 @@ data class ChavePix(
         @field:NotBlank
         @field:Size(max = 77)
         @Column(nullable = false, unique = true)
-        val chave: String,
+        var chave: String,
 
         @field:NotNull
         @Enumerated(STRING)
         @Column(nullable = false)
-        val tipoDeConta: TipoDeConta,
+        val tipoDeConta: TipoConta,
 
         @field:Valid
         @Embedded
-        val conta: ContaAssociada
+        val conta: ContaAssociada,
+
+
+        val registradaEm: LocalDateTime = LocalDateTime.now()
 
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id: UUID? = null
 
-
-    @Column(nullable = false)
-    val registradaEm: LocalDateTime = LocalDateTime.now()
-
-
-
+    fun atualiza(key: String) {
+        this.chave = key
+    }
 
 
 }
