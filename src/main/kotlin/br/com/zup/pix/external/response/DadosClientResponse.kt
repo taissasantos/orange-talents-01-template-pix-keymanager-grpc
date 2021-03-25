@@ -1,7 +1,6 @@
 package br.com.zup.pix.external
 
 import br.com.zup.pix.registra.ContaAssociada
-import javax.persistence.Embeddable
 
 data class DadosClientResponse(
         val tipo: String,
@@ -26,4 +25,12 @@ data class DadosClientResponse(
 
 data class TitularResponse(val id: String, val nome: String, val cpf: String)
 
-data class InstituicaoResponse(val nome: String, val ispb: String)
+data class InstituicaoResponse(var nome: String, var ispb: String){
+
+    fun toModel(): InstituicaoResponse{
+        return InstituicaoResponse(
+                nome = nome,
+                ispb = ispb
+        )
+    }
+}

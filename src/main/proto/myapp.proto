@@ -4,6 +4,7 @@ option java_multiple_files = true;
 option java_package = "br.com.zup";
 option java_outer_classname = "Pix";
 option objc_class_prefix = "HLW";
+import "google/protobuf/timestamp.proto";
 
 package br.com.zup;
 
@@ -16,6 +17,11 @@ service RemoveChavePixService {
   rpc remove (RemoveChavePixRequest) returns (RemoveChavePixPixResponse) {}
 
 }
+service CarregaChavePixService {
+  rpc carrega (CarregaChavePixRequest) returns (CarregaChavePixResponse) {}
+
+}
+
 
 enum TipoDeChave{
   UNKNOWN_TIPO_CHAVE  = 0;
@@ -51,4 +57,39 @@ message RemoveChavePixRequest{
 message RemoveChavePixPixResponse{
   string clientId = 1;
   string pixId    = 2;
+}
+
+message CarregaChavePixRequest{
+  message FiltroPorPixId{
+    string clientId = 1;
+    string pixId    = 2;
+
+  }
+
+  oneof filtro{
+    FiltroPorPixId pixId = 1;
+    string chave         = 2;
+  }
+}
+
+message CarregaChavePixResponse{
+  message ChavePix{
+
+    message ContaInfo{
+      TipoDeConta tipo      = 1;
+      string instituicao    = 2;
+      string nomeDoTitular  = 3;
+      string cpfDoTitular   = 4;
+      string agencia        = 5;
+      string numeroDaConta  = 6;
+    }
+    TipoDeChave tipo                   = 1;
+    string chave                       = 2;
+    ContaInfo conta                    = 3;
+    google.protobuf.Timestamp criadaEm = 4;
+  }
+  string clientId = 1;
+  string pixId    = 2;
+  ChavePix chave  = 3;
+
 }

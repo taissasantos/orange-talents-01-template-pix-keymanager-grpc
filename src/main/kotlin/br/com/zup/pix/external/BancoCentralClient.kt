@@ -1,6 +1,7 @@
 package br.com.zup.pix.external
 
 
+import br.com.zup.pix.consulta.ChavePixResponse
 import br.com.zup.pix.external.enum.AccountType
 import br.com.zup.pix.external.enum.BankAccount
 import br.com.zup.pix.external.enum.KeyType
@@ -16,7 +17,6 @@ import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.*
 import io.micronaut.http.client.annotation.Client
 import java.time.LocalDateTime
-import javax.validation.Valid
 
 @Client(value = "http://localhost:8082")
 interface BancoCentralClient {
@@ -81,9 +81,9 @@ data class PixKeyDetailsResponse(
         val owner: Owner,
         val createdAt: LocalDateTime
 ) {
-    fun toPix(): ChavePix {
+    fun toPix(): ChavePixResponse {
 
-        return ChavePix(
+        return ChavePixResponse(
                 clientId = null,
                 tipo = when (keyType) {
                     KeyType.CPF -> TipoChave.CPF
@@ -107,5 +107,7 @@ data class PixKeyDetailsResponse(
                 registradaEm = createdAt
         )
     }
+
+
 }
 
